@@ -1,9 +1,9 @@
 <template>
   <div class="sidebar">
     <el-menu default-active="onRoutes" class="el-menu-vertical-demo" @open="handleOpen" @close="handleClose" :collapse="isCollapse"
-      background-color="#545c64" text-color="#fff" active-text-color="#ffd04b">
+      background-color="#545c64" text-color="#fff" active-text-color="#ffd04b" unique-opened router>
       <!-- unique-opened router -->
-      <el-submenu index="1">
+      <!-- <el-submenu index="1">
         <template slot="title">
           <i class="el-icon-location"></i>
           <span slot="title">导航一</span>
@@ -20,16 +20,16 @@
           <span slot="title">选项4</span>
           <el-menu-item index="1-4-1">选项1</el-menu-item>
         </el-submenu>
-      </el-submenu>
-      <el-menu-item index="2">
+      </el-submenu> -->
+      <el-menu-item index="/">
         <i class="el-icon-menu"></i>
         <span slot="title">导航二</span>
       </el-menu-item>
-      <el-menu-item index="3" disabled>
+      <!-- <el-menu-item index="3" disabled>
         <i class="el-icon-document"></i>
         <span slot="title">导航三</span>
-      </el-menu-item>
-      <el-menu-item index="4">
+      </el-menu-item> -->
+      <el-menu-item index="test">
         <i class="el-icon-setting"></i>
         <span slot="title">导航四</span>
       </el-menu-item>
@@ -44,7 +44,7 @@
     display: block;
     position: absolute;
     left: 0;
-    top: 80px;
+    top: 60px;
     bottom: 0;
     overflow-y: scroll;
   }

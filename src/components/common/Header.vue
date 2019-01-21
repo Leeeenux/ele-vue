@@ -1,11 +1,10 @@
 <template>
-  <div class="header">
-    <div class="wrapper">
+  <el-header>
       <div class="collapse-btn" @click="collapseChage">
-        <i class="el-icon-menu"></i>
-      </div>
-    </div>
-  </div>
+          <i class="iconfont icon-liebiaomoshi_kuai"></i>
+        </div>
+  </el-header>
+  
 
 </template>
 
@@ -39,9 +38,7 @@
 </script>
 
 <style scoped>
-  .wrapper {
-    width: 100%;
-    height: 80px;
-    background-color: red;
+  .el-header {
+    line-height: 60px;
   }
 </style>

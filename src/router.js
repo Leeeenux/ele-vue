@@ -2,6 +2,8 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Home from './views/Home.vue'
 
+// import Dashboard from './components/pages/Dashboard.vue'
+// import test from './components/pages/test.vue'
 Vue.use(Router)
 
 export default new Router({
@@ -10,8 +12,24 @@ export default new Router({
   routes: [
     {
       path: '/',
+      redirect: '/dashboard'
+    },
+    {
+      path: '/',
       name: 'home',
-      component: Home
+      component: Home,
+      children: [
+        {
+          // 当 /user/:id/profile 匹配成功，
+          // UserProfile 会被渲染在 User 的 <router-view> 中
+          path: 'dashboard',
+          component: resolve => require(['./components/pages/Dashboard.vue'], resolve)
+        },
+        {
+          path:'test',
+          component: resolve => require(['./components/pages/test.vue'], resolve)
+        }
+      ]
     },
     {
       path: '/about',

@@ -20,12 +20,15 @@ a {
     text-decoration: none
 }
 
+.iconfont {
+    font-size: inherit;
+}
 
 .content-box {
     position: absolute;
     left: 200px;
     right: 0;
-    top: 80px;
+    top: 60px;
     bottom: 0;
     padding-bottom: 30px;
     -webkit-transition: left .3s ease-in-out;

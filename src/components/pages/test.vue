@@ -1,11 +1,5 @@
 <template>
-  <div class="header">
-    <div class="wrapper">
-      <div class="collapse-btn" @click="collapseChage">
-        <i class="el-icon-menu"></i>
-      </div>
-    </div>
-  </div>
+  <h1>ttttt</h1>
 
 </template>
 
