@@ -1,35 +1,11 @@
 <template>
   <div>
     <el-row :gutter="20">
-      <el-col :span="8">
+      <el-col>
         <el-card class="box-card">
-          <h1>sada</h1>
-        </el-card>
-      </el-col>
-      <el-col :span="8">
-        <el-card class="box-card">
-          <h1>sada</h1>
-        </el-card>
-      </el-col>
-      <el-col :span="8">
-        <el-card class="box-card">
-          <h1>sada</h1>
-        </el-card>
-      </el-col>
-    </el-row>
-    <el-row :gutter="20">
-      <el-col :span="8">
-        <el-card class="box-card">
-          <h1>sada</h1>
-        </el-card>
-      </el-col>
-      <el-col :span="8">
-        <el-card class="box-card">
-          <h1>sada</h1>
-        </el-card>
-      </el-col>
-      <el-col :span="8">
-        <el-card class="box-card">
+          <div slot="header" class="clearfix">
+            <span>我参与的课程</span>
+          </div>
           <h1>sada</h1>
         </el-card>
       </el-col>
@@ -66,10 +42,22 @@
   .item {
     padding: 18px 0;
   }
+
   .el-row {
     margin-bottom: 20px;
+
     &:last-child {
       margin-bottom: 0;
     }
+  }
+
+  .clearfix:before,
+  .clearfix:after {
+    display: table;
+    content: "";
+  }
+
+  .clearfix:after {
+    clear: both
   }
 </style>

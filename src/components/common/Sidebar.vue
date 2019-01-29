@@ -22,16 +22,16 @@
         </el-submenu>
       </el-submenu> -->
       <el-menu-item index="/">
-        <i class="el-icon-menu"></i>
-        <span slot="title">导航二</span>
+        <i class="iconfont icon-shujukanban"></i>
+        <span slot="title">我的面板</span>
       </el-menu-item>
       <!-- <el-menu-item index="3" disabled>
         <i class="el-icon-document"></i>
         <span slot="title">导航三</span>
       </el-menu-item> -->
       <el-menu-item index="test">
-        <i class="el-icon-setting"></i>
-        <span slot="title">导航四</span>
+        <i class="iconfont icon-peiwangyindao"></i>
+        <span slot="title">我参与的课程</span>
       </el-menu-item>
     </el-menu>
   </div>
@@ -44,7 +44,7 @@
     display: block;
     position: absolute;
     left: 0;
-    top: 60px;
+    top: 0px;
     bottom: 0;
     overflow-y: scroll;
   }
@@ -64,6 +64,11 @@
   .el-menu-vertical-demo:not(.el-menu--collapse) {
     width: 200px;
     min-height: 400px;
+  }
+
+  .iconfont {
+    width: 24px;
+    margin-right: 5px;
   }
 </style>
 

@@ -1,10 +1,10 @@
 <template>
   <div class="wrapper">
-    <Header />
     <Sidebar />
-
     <div class="content-box" :class="{'content-collapse':isCollapse}">
+      <Header />
       <div class="content">
+        <Breadcrumb />
         <transition name="move" mode="out-in">
           <keep-alive>
             <router-view></router-view>
@@ -32,7 +32,8 @@
     },
     components: {
       Header,
-      Sidebar
+      Sidebar,
+      Breadcrumb
     },
     created() {
       bus.$on('isCollapse', msg => {

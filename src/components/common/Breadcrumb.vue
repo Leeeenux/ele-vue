@@ -1,10 +1,18 @@
 <template>
-    <el-breadcrumb separator-class="el-icon-arrow-right">
-        <el-breadcrumb-item>首页</el-breadcrumb-item>
-        <el-breadcrumb-item>活动管理</el-breadcrumb-item>
-        <el-breadcrumb-item>活动列表</el-breadcrumb-item>
-        <el-breadcrumb-item>活动详情</el-breadcrumb-item>
-    </el-breadcrumb>
+    <div>
+        <el-row :gutter="20">
+            <el-col>
+                <el-card class="box-card">
+                    <el-breadcrumb separator-class="el-icon-arrow-right">
+                        <el-breadcrumb-item>首页</el-breadcrumb-item>
+                        <el-breadcrumb-item>活动管理</el-breadcrumb-item>
+                        <el-breadcrumb-item>活动列表</el-breadcrumb-item>
+                        <el-breadcrumb-item>活动详情</el-breadcrumb-item>
+                    </el-breadcrumb>
+                </el-card>
+            </el-col>
+        </el-row>
+    </div>
 </template>
 
 
@@ -16,25 +24,23 @@
         name: 'Breadcrumb',
         data() {
             return {
-                isCollapse: false
+
             }
 
         },
         methods: {
-            // 侧边栏折叠
-            collapseChage() {
-                this.isCollapse = !this.isCollapse;
-                console.log(this.isCollapse)
-                bus.$emit('isCollapse', this.isCollapse);//bus.$emit用来实现组件之间的通信，待研究
-            }
-        },
-        mounted() {
-            if (document.body.clientWidth < 1500) {
-                this.collapseChage();
-            }
+
         }
+
     };
 </script>
 
 <style scoped>
+    .el-row {
+        margin-bottom: 20px;
+
+        &:last-child {
+            margin-bottom: 0;
+        }
+    }
 </style>

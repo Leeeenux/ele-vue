@@ -1,10 +1,10 @@
 <template>
   <el-header>
-      <div class="collapse-btn" @click="collapseChage">
-          <i class="iconfont icon-liebiaomoshi_kuai"></i>
-        </div>
+    <div class="collapse-btn" @click="collapseChage" style="cursor:hand">
+      <i class="iconfont icon-liebiaomoshi_kuai"></i>
+    </div>
   </el-header>
-  
+
 
 </template>
 
@@ -40,5 +40,17 @@
 <style scoped>
   .el-header {
     line-height: 60px;
+    background-color: #fff;
+    padding: 0px;
   }
+  .collapse-btn {
+    text-align: center;
+    height: 60px;
+    width: 60px;
+  }
+
+  .collapse-btn:hover{
+    background-color: #666;
+  }
+
 </style>
