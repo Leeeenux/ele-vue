@@ -1,8 +1,14 @@
 <template>
   <el-header>
-    <div class="collapse-btn" @click="collapseChage" style="cursor:hand">
-      <i class="iconfont icon-liebiaomoshi_kuai"></i>
+    <div>
+      <div class="collapse-btn" @click="collapseChage" style="cursor:hand">
+        <i class="iconfont icon-liebiaomoshi_kuai"></i>
+      </div>
+      <div class="title">
+        <h1 style="font-size: 20px;">考勤管理系统</h1>
+      </div>
     </div>
+
   </el-header>
 
 
@@ -43,14 +49,23 @@
     background-color: #fff;
     padding: 0px;
   }
+
   .collapse-btn {
+    float: left;
     text-align: center;
     height: 60px;
     width: 60px;
   }
 
-  .collapse-btn:hover{
+  .collapse-btn:hover {
     background-color: #666;
   }
-
+  
+  .title {
+    float: left;
+    text-align: center;
+    line-height: 60px;
+    width: 150px;
+    height: 60px;
+  }
 </style>

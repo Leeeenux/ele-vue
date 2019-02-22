@@ -7,6 +7,9 @@
             <span>我参与的课程</span>
           </div>
           <h1>sada</h1>
+          <el-row>
+            <el-button v-on:click="clicktest" type="primary">axios测试</el-button>
+          </el-row>
         </el-card>
       </el-col>
     </el-row>
@@ -19,7 +22,7 @@
 
 <script>
   import bus from '@/components/bus';
-
+  import { Axios } from '@/plugins/AxiosPlugin'
   export default {
     name: 'Header',
     data() {
@@ -29,6 +32,19 @@
 
     },
     methods: {
+      clicktest: function (event) {
+        Axios.get('/user', {
+          params: {
+            ID: 12345
+          }
+        })
+          .then(function (response) {
+            console.log(response);
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+      }
 
     }
   };

@@ -70,6 +70,10 @@
     width: 24px;
     margin-right: 5px;
   }
+
+  .el-menu {
+    border-right: none;
+  }
 </style>
 
 <script>

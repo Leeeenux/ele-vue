@@ -4,6 +4,8 @@ import './plugins/element.js'
 import router from './router'
 import "./assets/iconfont/iconfont.css";
 
+import AxiosPlugin from './plugins/AxiosPlugin.js'
+Vue.use(AxiosPlugin)
 Vue.config.productionTip = false
 
 new Vue({
