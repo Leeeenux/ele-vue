@@ -79,9 +79,9 @@
     width: 60px;
   }
 
-  .collapse-btn:hover {
+  /* .collapse-btn:hover {
     background-color: #666;
-  }
+  } */
 
   .title {
     float: left;

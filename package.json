@@ -12,10 +12,12 @@
     "axios-cookiejar-support": "^0.4.2",
     "element-ui": "^2.4.5",
     "es6-promise": "^4.2.6",
+    "file-saver": "^2.0.1",
     "postcss-loader": "^3.0.0",
     "qs": "^6.6.0",
     "vue": "^2.5.21",
-    "vue-router": "^3.0.1"
+    "vue-router": "^3.0.1",
+    "xlsx": "^0.14.2"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^3.3.0",

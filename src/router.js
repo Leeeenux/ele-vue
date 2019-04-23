@@ -26,9 +26,34 @@ export default new Router({
           component: resolve => require(['./components/pages/Dashboard.vue'], resolve)
         },
         {
-          path:'test',
-          component: resolve => require(['./components/pages/test.vue'], resolve)
+          path:'leave',
+          component: resolve => require(['./components/pages/Leave.vue'], resolve)
+        },
+        {
+          path:'leaverecord',
+          component: resolve => require(['./components/pages/LeaveRecord.vue'], resolve)
+        },
+        {
+          path:'class',
+          component: resolve => require(['./components/pages/Class.vue'], resolve)
+        },
+        {
+          path:'student',
+          component: resolve => require(['./components/pages/Student.vue'], resolve)
+        },
+        {
+          path:'MyAttendance',
+          component: resolve => require(['./components/pages/MyAttendance.vue'], resolve)
+        },
+        {
+          path:'AttendanceManage',
+          component: resolve => require(['./components/pages/AttendanceManage.vue'], resolve)
+        },
+        {
+          path:'settings',
+          component: resolve => require(['./components/pages/Settings.vue'], resolve)
         }
+        
       ]
     },
     {

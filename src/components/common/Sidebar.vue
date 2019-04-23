@@ -25,22 +25,55 @@
         <i class="iconfont icon-shujukanban"></i>
         <span slot="title">我的面板</span>
       </el-menu-item>
+      <el-menu-item index="class">
+          <i class="iconfont icon-peiwangyindao"></i>
+          <span slot="title">我参与的课程</span>
+        </el-menu-item>
       <!-- <el-menu-item index="3" disabled>
         <i class="el-icon-document"></i>
         <span slot="title">导航三</span>
       </el-menu-item> -->
-      <el-menu-item index="test">
-        <i class="iconfont icon-peiwangyindao"></i>
-        <span slot="title">我参与的课程</span>
+      <el-menu-item index="student" v-if="role == 'teacher'">
+        <i class="iconfont icon-icon_zhanghao"></i>
+        <span slot="title">学生管理</span>
       </el-menu-item>
+      <el-menu-item index="AttendanceManage" v-if="role == 'teacher'">
+        <i class="iconfont icon-biaodanzujian-biaoge2"></i>
+        <span slot="title">考勤管理</span>
+      </el-menu-item>
+      <el-menu-item index="MyAttendance">
+          <i class="iconfont icon-biaodanzujian-biaoge2"></i>
+          <span slot="title">我的签到</span>
+        </el-menu-item>
       <el-submenu index="1">
+          <template slot="title">
+            <i class="iconfont icon-renwujincheng"></i>
+            <span slot="title">请假</span>
+          </template>
+          <el-menu-item-group>
+            <span slot="title">请假</span>
+            <el-menu-item index="leave">请假申请</el-menu-item>
+            <el-menu-item index="leaverecord">请假记录</el-menu-item>
+          </el-menu-item-group> 
+        </el-submenu>
+        <el-menu-item index="0">
+            <i class="iconfont icon-xiaoxi"></i>
+            <span slot="title">我的消息（0条未读）</span>
+          </el-menu-item>
+          <el-menu-item index="settings">
+            <i class="iconfont icon-icon_shezhi"></i>
+            <span slot="title">设置</span>
+          </el-menu-item>
+          
+    </el-menu>
+      <!-- <el-submenu index="1">
           <template slot="title">
             <i class="el-icon-location"></i>
             <span slot="title">导航一</span>
           </template>
           <el-menu-item-group>
             <span slot="title">分组一</span>
-            <el-menu-item index="1-1">选项1</el-menu-item>
+            <el-menu-item index="leave">请假申请</el-menu-item>
             <el-menu-item index="1-2">选项2</el-menu-item>
           </el-menu-item-group>
           <el-menu-item-group title="分组2">
@@ -51,7 +84,7 @@
             <el-menu-item index="1-4-1">选项1</el-menu-item>
           </el-submenu>
         </el-submenu>
-    </el-menu>
+    </el-menu> -->
   </div>
 </template>
 
@@ -101,6 +134,7 @@
     name: "Sidebar",
     data() {
       return {
+        role:'teacher',
         isCollapse: false
       };
     },
