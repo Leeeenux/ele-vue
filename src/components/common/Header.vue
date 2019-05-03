@@ -11,7 +11,7 @@
     <div style="float: right;padding-right: 40px;">
       <el-dropdown>
         <span class="el-dropdown-link">
-          你好，{{username}}<i class="el-icon-arrow-down el-icon--right"></i>
+          <p>你好，{{username}}<i class="el-icon-arrow-down el-icon--right"></i></p>
         </span>
         <el-dropdown-menu slot="dropdown">
           <el-dropdown-item>{{username}}</el-dropdown-item>
@@ -70,6 +70,7 @@
     background-color: #fff;
     padding: 0px;
     overflow: hidden;
+    box-shadow: 0 0px 10px 0 rgba(0, 0, 0, 0.1);
   }
 
   .collapse-btn {

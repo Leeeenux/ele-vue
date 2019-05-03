@@ -4,7 +4,7 @@
       <el-col>
         <el-card class="box-card">
           <div slot="header" class="clearfix">
-            <span>请假记录</span>
+            <span>我的签到</span>
           </div>
           <el-row>
             <div id="out-table">
@@ -19,23 +19,23 @@
               </el-table-column>
               <el-table-column
                 prop="name"
-                label="请假时间"
+                label="课程名称"
                 width="180">
               </el-table-column>
               <el-table-column
                 prop="address"
-                label="请假理由">
+                label="签到时间">
               </el-table-column>
               <el-table-column
                 prop="address"
-                label="状态"
+                label="签到状态"
                 width="120">
               </el-table-column>
-              <el-table-column
+              <!-- <el-table-column
                 prop="address"
                 label="操作"
                 width="120">
-              </el-table-column>
+              </el-table-column> -->
             </el-table>
           </div>
           </el-row>
@@ -57,7 +57,7 @@
   import FileSaver from 'file-saver'
   import XLSX from 'xlsx'
   export default {
-    name: 'Header',
+    name: 'MyAttendance',
     data() {
       return {
         userinfo:[],

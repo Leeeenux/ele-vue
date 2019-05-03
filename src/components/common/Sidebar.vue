@@ -134,7 +134,7 @@
     name: "Sidebar",
     data() {
       return {
-        role:'teacher',
+        role:'student',//student
         isCollapse: false
       };
     },

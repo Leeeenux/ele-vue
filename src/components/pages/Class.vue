@@ -4,30 +4,42 @@
       <el-col>
         <el-card class="box-card">
           <div slot="header" class="clearfix">
-            <span>我参与的课程</span>
+            <span>{{className}}</span>
           </div>
           <el-row>
               <el-table
-              :data="tableData"
+              :data="courses"
               border
               style="width: 100%">
               <el-table-column
-                prop="num"
+                type="index"
                 label="序号"
                 width="100">
               </el-table-column>
               <el-table-column
-                prop="name"
+                prop="subject"
                 label="课程名称"
-                width="180">
+                width="250">
               </el-table-column>
               <el-table-column
-                prop="address"
-                label="教室">
+                prop="weekday"
+                label="日期">
               </el-table-column>
               <el-table-column
-                prop="handle"
-                label="操作"
+                prop="desc"
+                label="节次">
+              </el-table-column>
+              <el-table-column
+                prop="startTime"
+                label="开始时间">
+              </el-table-column>
+              <el-table-column
+                prop="endTime"
+                label="结束时间">
+              </el-table-column>
+              <el-table-column
+                prop="teacher"
+                label="任课教师"
                 width="120">
               </el-table-column>
             </el-table>
@@ -50,44 +62,43 @@
     data() {
       return {
         userinfo:[],
+        className:'',
         tableData: [{
           num: '1',
           name: 'C语言程序设计',
-          address: '精工园1-311',
-          handle: '进入'
+          address: '进入'
         }, {
           num: '2',
-          name: '数据结构与算法',
-          address: '精工园1-415',
-          handle: '进入'
+          name: 'C语言程序设计',
+          address: '进入'
         }, {
           num: '3',
-          name: 'Java程序设计',
-          address: '明理园2-405',
-          handle: '进入'
+          name: 'C语言程序设计',
+          address: '进入'
         }, {
           num: '4',
-          name: '网页设计',
-          address: '明理园1-205',
-          handle: '进入'
-        }]
+          name: 'C语言程序设计',
+          address: '进入'
+        }],
+        courses:[]
       }
 
     },
     
 
     created: function () {
-      // Axios({
-      //   method: "get",
-      //   url: "/user/info"
-      // })
-      //   .then(res => {
-      //     console.log(res.data)
-      //     this.data.userinfo = res.data
-      //   })
-      //   .catch(err => {
-      //     console.log(err)
-      //   })
+      Axios({
+        method: "get",
+        url: "/class/getclass"
+      })
+        .then(res => {
+          console.log(res.data)
+          this.courses = res.data.courses
+          this.className = res.data.className.className
+        })
+        .catch(err => {
+          console.log(err)
+        })
     },
     methods: {
       clicktest: function (event) {

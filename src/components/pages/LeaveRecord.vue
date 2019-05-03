@@ -18,22 +18,34 @@
                 width="100">
               </el-table-column>
               <el-table-column
-                prop="name"
-                label="请假时间"
-                width="180">
-              </el-table-column>
-              <el-table-column
-                prop="address"
-                label="请假理由">
-              </el-table-column>
-              <el-table-column
-                prop="address"
-                label="状态"
+                prop="studentNum"
+                label="学号"
                 width="120">
               </el-table-column>
               <el-table-column
+                prop="studentName"
+                label="姓名"
+                width="120">
+              </el-table-column>
+              <el-table-column
+                prop="name"
+                label="课程名"
+                >
+              </el-table-column>
+              <el-table-column
+                prop="reason"
+                label="节次"
+                width="150">
+              </el-table-column>
+              <el-table-column
+                prop="time"
+                label="签到时间"
+                width="200">
+              </el-table-column>
+              
+              <el-table-column
                 prop="address"
-                label="操作"
+                label="状态"
                 width="120">
               </el-table-column>
             </el-table>
@@ -63,20 +75,48 @@
         userinfo:[],
         tableData: [{
           num: '1',
+          studentName: '林佳苗',
+          studentNum: '1001',
           name: 'C语言程序设计',
-          address: '进入'
-        }, {
+          reason:'星期三第5节-第6节',
+          time:'2019年4月30日  14:25:36',
+          address:'迟到'
+        },
+        {
           num: '2',
+          studentName: '林佳苗',
+          studentNum: '1002',
           name: 'C语言程序设计',
-          address: '进入'
-        }, {
+          reason:'星期三第5节-第6节',
+          time:'2019年4月30日  14:27:16',
+          address:'迟到'
+        },
+        {
           num: '3',
+          studentName: '陈丽',
+          studentNum: '1003',
           name: 'C语言程序设计',
-          address: '进入'
-        }, {
+          reason:'星期三第5节-第6节',
+          time:'2019年4月30日  14:24:54',
+          address:'准点'
+        },
+        {
           num: '4',
+          studentName: '林佳苗',
+          studentNum: '1004',
           name: 'C语言程序设计',
-          address: '撤销'
+          reason:'星期三第5节-第6节',
+          time:'2019年4月30日  14:21:30',
+          address:'准点'
+        },
+        {
+          num: '5',
+          studentName: '林佳苗',
+          studentNum: '1005',
+          name: 'C语言程序设计',
+          reason:'星期三第5节-第6节',
+          time:'2019年4月30日  14:15:15',
+          address:'准点'
         }]
       }
 

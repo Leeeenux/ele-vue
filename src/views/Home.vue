@@ -4,7 +4,7 @@
     <div class="content-box" :class="{'content-collapse':isCollapse}">
       <Header :username="name"/>
       <div class="content">
-        <Breadcrumb />
+        <!-- <Breadcrumb /> -->
         <transition name="move" mode="out-in">
           <keep-alive>
             <router-view></router-view>
