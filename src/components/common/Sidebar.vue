@@ -1,7 +1,8 @@
 <template>
   <div class="sidebar">
-    <el-menu default-active="onRoutes" class="el-menu-vertical-demo" @open="handleOpen" @close="handleClose" :collapse="isCollapse"
-      background-color="#545c64" text-color="#fff" active-text-color="#ffd04b" unique-opened router>
+    <el-menu default-active="onRoutes" class="el-menu-vertical-demo" @open="handleOpen" @close="handleClose"
+      :collapse="isCollapse" background-color="#545c64" text-color="#fff" active-text-color="#ffd04b" unique-opened
+      router>
       <!-- unique-opened router -->
       <!-- <el-submenu index="1">
         <template slot="title">
@@ -26,9 +27,9 @@
         <span slot="title">我的面板</span>
       </el-menu-item>
       <el-menu-item index="class">
-          <i class="iconfont icon-peiwangyindao"></i>
-          <span slot="title">我参与的课程</span>
-        </el-menu-item>
+        <i class="iconfont icon-peiwangyindao"></i>
+        <span slot="title">我参与的课程</span>
+      </el-menu-item>
       <!-- <el-menu-item index="3" disabled>
         <i class="el-icon-document"></i>
         <span slot="title">导航三</span>
@@ -42,31 +43,46 @@
         <span slot="title">考勤管理</span>
       </el-menu-item>
       <el-menu-item index="MyAttendance">
-          <i class="iconfont icon-biaodanzujian-biaoge2"></i>
-          <span slot="title">我的签到</span>
-        </el-menu-item>
+        <i class="iconfont icon-biaodanzujian-biaoge2"></i>
+        <span slot="title">我的签到</span>
+      </el-menu-item>
+      <el-menu-item index="InsertInfo">
+        <i class="iconfont icon-quanxianshenpi"></i>
+        <span slot="title">人员管理</span>
+      </el-menu-item>
+      <el-submenu index="0">
+        <template slot="title">
+          <i class="iconfont icon-xiaoxitongzhi"></i>
+          <span slot="title">通知</span>
+        </template>
+        <el-menu-item-group>
+          <span slot="title">请假</span>
+          <el-menu-item index="editor">消息编辑器</el-menu-item>
+          <el-menu-item index="leaverecord">请假记录</el-menu-item>
+        </el-menu-item-group>
+      </el-submenu>
       <el-submenu index="1">
-          <template slot="title">
-            <i class="iconfont icon-renwujincheng"></i>
-            <span slot="title">请假</span>
-          </template>
-          <el-menu-item-group>
-            <span slot="title">请假</span>
-            <el-menu-item index="leave">请假申请</el-menu-item>
-            <el-menu-item index="leaverecord">请假记录</el-menu-item>
-          </el-menu-item-group> 
-        </el-submenu>
-        <el-menu-item index="0">
-            <i class="iconfont icon-xiaoxi"></i>
-            <span slot="title">我的消息（0条未读）</span>
-          </el-menu-item>
-          <el-menu-item index="settings">
-            <i class="iconfont icon-icon_shezhi"></i>
-            <span slot="title">设置</span>
-          </el-menu-item>
-          
+        <template slot="title">
+          <i class="iconfont icon-renwujincheng"></i>
+          <span slot="title">请假</span>
+        </template>
+        <el-menu-item-group>
+          <span slot="title">请假</span>
+          <el-menu-item index="leave">请假申请</el-menu-item>
+          <el-menu-item index="leaverecord">请假记录</el-menu-item>
+        </el-menu-item-group>
+      </el-submenu>
+      <el-menu-item index="0">
+        <i class="iconfont icon-xiaoxi"></i>
+        <span slot="title">我的消息（0条未读）</span>
+      </el-menu-item>
+      <el-menu-item index="settings">
+        <i class="iconfont icon-icon_shezhi"></i>
+        <span slot="title">设置</span>
+      </el-menu-item>
+
     </el-menu>
-      <!-- <el-submenu index="1">
+    <!-- <el-submenu index="1">
           <template slot="title">
             <i class="el-icon-location"></i>
             <span slot="title">导航一</span>
@@ -134,7 +150,7 @@
     name: "Sidebar",
     data() {
       return {
-        role:'student',//student
+        role: 'student',//student
         isCollapse: false
       };
     },

@@ -118,15 +118,6 @@
   .item {
     padding: 18px 0;
   }
-
-  .el-row {
-    margin-bottom: 20px;
-
-    &:last-child {
-      margin-bottom: 0;
-    }
-  }
-
   .clearfix:before,
   .clearfix:after {
     display: table;

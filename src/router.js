@@ -51,7 +51,15 @@ export default new Router({
         },
         {
           path:'settings',
-          component: resolve => require(['./components/pages/Settings.vue'], resolve)
+          component: resolve => require(['./components/pages/NoticeRecord.vue'], resolve)
+        },
+        {
+          path:'insertInfo',
+          component: resolve => require(['./components/pages/StudentInfo.vue'], resolve)
+        },
+        {
+          path:'editor',
+          component: resolve => require(['./components/pages/HtmlEditor.vue'], resolve)
         }
         
       ]
