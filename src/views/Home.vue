@@ -1,6 +1,6 @@
 <template>
   <div class="wrapper">
-    <Sidebar />
+    <Sidebar :role="role"/>
     <div class="content-box" :class="{'content-collapse':isCollapse}">
       <Header :username="name"/>
       <div class="content">
@@ -29,7 +29,8 @@
       return {
         isCollapse: false,
         tagsList: [],
-        name:''
+        name:'',
+        role:''
       }
     },
     components: {
@@ -47,8 +48,9 @@
         url: "/user/info"
       })
         .then(res => {
-          console.log(res.data.userinfo)
-          this.name = res.data.userinfo.name
+          console.log(res.data)
+          this.name = res.data.userInfo.name
+          this.role = res.data.role
         })
         .catch(err => {
           console.log(err)

@@ -22,12 +22,12 @@
           <el-menu-item index="1-4-1">选项1</el-menu-item>
         </el-submenu>
       </el-submenu> -->
-      <el-menu-item index="/">
-        <i class="iconfont icon-shujukanban"></i>
+      <el-menu-item index="/" v-if="role == 'student'">
+        <i class="iconfont icon-shujukanban" v-if="role == 'student'"></i>
         <span slot="title">我的面板</span>
       </el-menu-item>
-      <el-menu-item index="class">
-        <i class="iconfont icon-peiwangyindao"></i>
+      <el-menu-item index="class" v-if="role == 'student'">
+        <i class="iconfont icon-peiwangyindao" ></i>
         <span slot="title">我参与的课程</span>
       </el-menu-item>
       <!-- <el-menu-item index="3" disabled>
@@ -46,36 +46,42 @@
         <i class="iconfont icon-biaodanzujian-biaoge2"></i>
         <span slot="title">我的签到</span>
       </el-menu-item>
-      <el-menu-item index="InsertInfo">
-        <i class="iconfont icon-quanxianshenpi"></i>
-        <span slot="title">人员管理</span>
-      </el-menu-item>
+
       <el-submenu index="0">
+          <template slot="title">
+            <i class="iconfont icon-quanxianshenpi"></i>
+            <span slot="title">人员管理</span>
+          </template>
+          <el-menu-item-group>
+            <span slot="title">通知</span>
+            <el-menu-item index="studentInfo" v-if="role == 'teacher'">学生管理</el-menu-item>
+            <el-menu-item index="teacherInfo" v-if="role == 'teacher'">学生管理</el-menu-item>
+            <el-menu-item index="noticerecord" v-if="role == 'teacher'" >管理通知</el-menu-item>
+          </el-menu-item-group>
+        </el-submenu>
+
+      <el-submenu index="1" v-if="role == 'student'">
         <template slot="title">
           <i class="iconfont icon-xiaoxitongzhi"></i>
           <span slot="title">通知</span>
         </template>
         <el-menu-item-group>
-          <span slot="title">请假</span>
-          <el-menu-item index="editor">通知编辑器</el-menu-item>
-          <el-menu-item index="noticerecord">管理通知</el-menu-item>
+          <span slot="title">通知</span>
+          <el-menu-item index="editor" v-if="role == 'teacher'">通知编辑器</el-menu-item>
+          <el-menu-item index="noticerecord" v-if="role == 'teacher'" >管理通知</el-menu-item>
         </el-menu-item-group>
       </el-submenu>
-      <el-submenu index="1">
+      <el-submenu index="2">
         <template slot="title">
           <i class="iconfont icon-renwujincheng"></i>
           <span slot="title">请假</span>
         </template>
         <el-menu-item-group>
           <span slot="title">请假</span>
-          <el-menu-item index="leave">请假申请</el-menu-item>
-          <el-menu-item index="leaverecord">请假记录</el-menu-item>
+          <el-menu-item index="leave" v-if="role == 'student'">请假申请</el-menu-item>
+          <el-menu-item index="leaverecord"  v-if="role == 'student'">请假记录</el-menu-item>
         </el-menu-item-group>
       </el-submenu>
-      <el-menu-item index="0">
-        <i class="iconfont icon-xiaoxi"></i>
-        <span slot="title">我的消息（0条未读）</span>
-      </el-menu-item>
       <el-menu-item index="settings">
         <i class="iconfont icon-icon_shezhi"></i>
         <span slot="title">设置</span>
@@ -150,10 +156,10 @@
     name: "Sidebar",
     data() {
       return {
-        role: 'student',//student
         isCollapse: false
       };
     },
+    props: ['role'],
     methods: {
       handleOpen(key, keyPath) {
         console.log(key, keyPath);

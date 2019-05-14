@@ -54,8 +54,12 @@ export default new Router({
           component: resolve => require(['./components/pages/NoticeRecord.vue'], resolve)
         },
         {
-          path:'insertInfo',
+          path:'studentInfo',
           component: resolve => require(['./components/pages/StudentInfo.vue'], resolve)
+        },
+        {
+          path:'teacherInfo',
+          component: resolve => require(['./components/pages/TeacherInfo.vue'], resolve)
         },
         {
           path:'editor',
