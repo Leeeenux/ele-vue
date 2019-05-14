@@ -30,37 +30,35 @@
         <i class="iconfont icon-peiwangyindao" ></i>
         <span slot="title">我参与的课程</span>
       </el-menu-item>
-      <!-- <el-menu-item index="3" disabled>
-        <i class="el-icon-document"></i>
-        <span slot="title">导航三</span>
-      </el-menu-item> -->
-      <el-menu-item index="student" v-if="role == 'teacher'">
+      <!-- <el-menu-item index="student" v-if="role == 'teacher'">
         <i class="iconfont icon-icon_zhanghao"></i>
         <span slot="title">学生管理</span>
-      </el-menu-item>
+      </el-menu-item> -->
       <el-menu-item index="AttendanceManage" v-if="role == 'teacher'">
         <i class="iconfont icon-biaodanzujian-biaoge2"></i>
         <span slot="title">考勤管理</span>
       </el-menu-item>
-      <el-menu-item index="MyAttendance">
+      <el-menu-item index="MyAttendance" v-if="role == 'student'">
         <i class="iconfont icon-biaodanzujian-biaoge2"></i>
         <span slot="title">我的签到</span>
       </el-menu-item>
-
-      <el-submenu index="0">
+      <el-submenu index="0" v-if="role == 'teacher'">
           <template slot="title">
             <i class="iconfont icon-quanxianshenpi"></i>
             <span slot="title">人员管理</span>
           </template>
           <el-menu-item-group>
-            <span slot="title">通知</span>
+            <span slot="title">人员管理</span>
             <el-menu-item index="studentInfo" v-if="role == 'teacher'">学生管理</el-menu-item>
-            <el-menu-item index="teacherInfo" v-if="role == 'teacher'">学生管理</el-menu-item>
-            <el-menu-item index="noticerecord" v-if="role == 'teacher'" >管理通知</el-menu-item>
+            <el-menu-item index="teacherInfo" v-if="role == 'admin'">教师管理</el-menu-item>
           </el-menu-item-group>
         </el-submenu>
 
-      <el-submenu index="1" v-if="role == 'student'">
+      <el-menu-item index="noticerecord" v-if="role == 'student'">
+          <i class="iconfont icon-biaodanzujian-biaoge2"></i>
+          <span slot="title">查看通知</span>
+      </el-menu-item>
+      <el-submenu index="1" v-if="role == 'teacher'">
         <template slot="title">
           <i class="iconfont icon-xiaoxitongzhi"></i>
           <span slot="title">通知</span>
@@ -80,6 +78,7 @@
           <span slot="title">请假</span>
           <el-menu-item index="leave" v-if="role == 'student'">请假申请</el-menu-item>
           <el-menu-item index="leaverecord"  v-if="role == 'student'">请假记录</el-menu-item>
+          <el-menu-item index="leavemanage"  v-if="role == 'teacher'">请假管理</el-menu-item>
         </el-menu-item-group>
       </el-submenu>
       <el-menu-item index="settings">

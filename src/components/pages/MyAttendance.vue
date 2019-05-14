@@ -1,134 +1,142 @@
 <template>
-  <div>
-    <el-row :gutter="20">
-      <el-col>
-        <el-card class="box-card">
-          <div slot="header" class="clearfix">
-            <span>我的签到</span>
-          </div>
-          <el-row>
-            <div id="out-table">
-              <el-table
-              :data="tableData"
-              border
-              style="width: 100%">
-              <el-table-column
-                prop="num"
-                label="序号"
-                width="100">
-              </el-table-column>
-              <el-table-column
-                prop="name"
-                label="课程名称"
-                width="180">
-              </el-table-column>
-              <el-table-column
-                prop="address"
-                label="签到时间">
-              </el-table-column>
-              <el-table-column
-                prop="address"
-                label="签到状态"
-                width="120">
-              </el-table-column>
-              <!-- <el-table-column
-                prop="address"
-                label="操作"
-                width="120">
-              </el-table-column> -->
-            </el-table>
-          </div>
-          </el-row>
-        </el-card>
-      </el-col>
-    </el-row>
-    <el-button type="primary" @click="exportExcel">导出excel</el-button>
-  </div>
+    <div>
+      <el-row>
+        <el-col>
+          <el-card>
+              <el-row>
+                  <el-select v-model="days" placeholder="请选择时间" @change="daysChange">
+                      <el-option label="近7天考勤记录" value="1"></el-option>
+                      <el-option label="近30天考勤记录" value="2"></el-option>
+                      <el-option label="全部考勤记录" value="3"></el-option>
+                  </el-select>
+              </el-row>
+            <el-row style="margin-top:20px;">
+              <el-table :data="tableData" border style="width: 100%" size="mini">
+                <el-table-column type="index" label="序号" width="80">
+                </el-table-column>
+                <el-table-column prop="subjectName" label="课程">
+                </el-table-column>
+                <el-table-column prop="weekday" label="日期" width="180">
+                </el-table-column>
+                <el-table-column prop="arrangeDesc" label="节次" width="180">
+                </el-table-column>
+                <el-table-column prop="createTime" label="开课时间">
+                  </el-table-column>
+                <el-table-column prop="signInTime" label="签到时间">
+                </el-table-column>
+                <el-table-column prop="signInStatus" label="签到状态" width="80">
+                </el-table-column>
+                <el-table-column label="操作" width="120">
+                  <template slot-scope="scope">
+                    <el-button @click="deleteClick(scope.row)" icon="el-icon-delete" type="text" size="small">删除
+                    </el-button>
+                    <el-button @click="editClick(scope.row)" icon="el-icon-edit" type="text" size="small">编辑</el-button>
+                  </template>
+                </el-table-column>
+              </el-table>
+            </el-row>
   
-
-
-</template>
-
-
-
-<script>
-  import bus from '@/components/bus';
-  import { Axios } from '@/plugins/AxiosPlugin'
-  import FileSaver from 'file-saver'
-  import XLSX from 'xlsx'
-  export default {
-    name: 'MyAttendance',
-    data() {
-      return {
-        userinfo:[],
-        tableData: [{
-          num: '1',
-          name: 'C语言程序设计',
-          address: '进入'
-        }, {
-          num: '2',
-          name: 'C语言程序设计',
-          address: '进入'
-        }, {
-          num: '3',
-          name: 'C语言程序设计',
-          address: '进入'
-        }, {
-          num: '4',
-          name: 'C语言程序设计',
-          address: '撤销'
-        }]
-      }
-
-    },
-    
-
-    created: function () {
-     
-    },
-    methods: {
-      clicktest: function () {
-        console.log(this.$route.path)
-
+          </el-card>
+        </el-col>
+      </el-row>
+      <el-row style="text-align: center;">
+        <div style="margin-top:20px;">
+          <el-pagination background layout="prev, pager, next" :total="100">
+          </el-pagination>
+        </div>
+      </el-row>
+      <EditorDialog :show.sync="show" :rowInfo="rowInfo"></EditorDialog>
+    </div>
+  
+  </template>
+  
+  
+  
+  <script>
+    import bus from '@/components/bus';
+    import { Axios } from '@/plugins/AxiosPlugin'
+    import EditorDialog from '@/components/common/EditorDialog'
+    export default {
+      data() {
+        return {
+          tableData: [{
+            title: 'title',
+            type: 'type',
+            content: 'content',
+            createTime: '2019'
+          }],
+          show: false,
+          rowInfo: {},
+          days:'1'
+        }
+  
       },
-      exportExcel () {
-         /* generate workbook object from table */
-         var wb = XLSX.utils.table_to_book(document.querySelector('#out-table'))
-         /* get binary string as output */
-         var wbout = XLSX.write(wb, { bookType: 'xlsx', bookSST: true, type: 'array' })
-         try {
-             FileSaver.saveAs(new Blob([wbout], { type: 'application/octet-stream' }), 'sheetjs.xlsx')
-         } catch (e) { if (typeof console !== 'undefined') console.log(e, wbout) }
-         return wbout
-     }
-    }
-  };
-</script>
-
-<style scoped>
-  .text {
-    font-size: 14px;
-  }
-
-  .item {
-    padding: 18px 0;
-  }
-
-  .el-row {
-    margin-bottom: 20px;
-
-    &:last-child {
-      margin-bottom: 0;
-    }
-  }
-
-  .clearfix:before,
-  .clearfix:after {
-    display: table;
-    content: "";
-  }
-
-  .clearfix:after {
-    clear: both
-  }
-</style>
+      components: {
+        EditorDialog
+      },
+      created: function () {
+        Axios({
+          method: "get",
+          url: "/student/record"
+        })
+          .then(res => {
+            console.log(res.data)
+            this.tableData = res.data.list
+          })
+          .catch(err => {
+            console.log(err)
+          })
+      },
+      activated() {
+        this.reloadRecord()
+      },
+      watch: {
+        show(){
+          if(!this.show){
+            this.reloadRecord()
+          }
+        }
+      },
+      methods: {
+        daysChange(e){
+          console.log(e)
+        },
+        editClick(row) {
+          this.show = true;
+          this.rowInfo = row;
+        },
+        deleteClick(row) {
+          var noticeId = row.noticeId
+          Axios({
+            method: "get",
+            url: "/notice/delete",
+            params: {
+              noticeId: noticeId
+            }
+          })
+            .then(res => {
+              this.reloadRecord()
+            })
+            .catch(err => {
+              console.log(err)
+            })
+        },
+        reloadRecord(){
+          Axios({
+          method: "get",
+          url: "/student/record"
+        })
+          .then(res => {
+            console.log(res.data)
+            this.tableData = res.data.list
+          })
+          .catch(err => {
+            console.log(err)
+          })
+        }
+      }
+    };
+  </script>
+  
+  <style scoped>
+  </style>

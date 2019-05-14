@@ -8,6 +8,7 @@
           </div>
           <el-row>
               <el-table
+              size="mini"
               :data="tableData"
               border
               style="width: 100%">

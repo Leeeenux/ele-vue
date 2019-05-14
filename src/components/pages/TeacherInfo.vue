@@ -4,12 +4,6 @@
             <el-col>
                 <el-card>
                     <el-row>
-                        <el-select v-model="noticeInfo.classId" placeholder="请选择班级" @change="classIdChange">
-                            <el-option label="15软件1班" value="101"></el-option>
-                            <el-option label="15软件2班" value="102"></el-option>
-                            <el-option label="15软件3班" value="103"></el-option>
-                            <el-option label="15软件4班" value="104"></el-option>
-                        </el-select>
                         <el-button style="margin-left:20px;" @click='uploadClick' icon="el-icon-upload2" type="success">
                             批量导入</el-button>
                     </el-row>
@@ -17,15 +11,13 @@
                         <el-table :data="tableData" border style="width: 100%" size="mini">
                             <el-table-column type="index" label="序号" width="80">
                             </el-table-column>
-                            <el-table-column prop="studentId" label="学号" width="180">
+                            <el-table-column prop="teacherId" label="工号" width="180">
                             </el-table-column>
-                            <el-table-column prop="studentName" label="姓名" width="180">
+                            <el-table-column prop="teacherName" label="姓名" width="180">
                             </el-table-column>
-                            <el-table-column prop="phone" label="手机号" width="180">
+                            <el-table-column prop="phone" label="手机号">
                             </el-table-column>
-                            <el-table-column prop="className" label="班级">
-                            </el-table-column>
-                            <el-table-column prop="duty" label="职务">
+                            <el-table-column prop="duty" label="职称" width="180">
                             </el-table-column>
                             <el-table-column label="操作" width="120">
                                 <template slot-scope="scope">
@@ -37,7 +29,7 @@
                         </el-table>
                     </el-row>
                     <el-row style="margin-top:20px;">
-                        <el-button icon="el-icon-download" type="primary">导出本班级</el-button>
+                        <el-button icon="el-icon-download" type="primary">导出本表</el-button>
                     </el-row>
                 </el-card>
             </el-col>
@@ -48,8 +40,8 @@
                 </el-pagination>
             </div>
         </el-row>
-        <StudentInfoDialog :show.sync="show" :rowInfo="rowInfo"></StudentInfoDialog>
-        <UploadDialog :show.sync="uploadshow"></UploadDialog>
+        <TeacherInfoDialog :show.sync="show" :rowInfo="rowInfo"></TeacherInfoDialog>
+        <TeacherUploadDialog :show.sync="uploadshow"></TeacherUploadDialog>
     </div>
 
 </template>
@@ -59,8 +51,8 @@
 <script>
     import bus from '@/components/bus';
     import { Axios } from '@/plugins/AxiosPlugin';
-    import StudentInfoDialog from '@/components/common/StudentInfoDialog'
-    import UploadDialog from '@/components/common/UploadDialog'
+    import TeacherInfoDialog from '@/components/common/TeacherInfoDialog'
+    import TeacherUploadDialog from '@/components/common/TeacherUploadDialog'
     import XLSX from 'xlsx';
     export default {
         data() {
@@ -95,16 +87,13 @@
 
         },
         components: {
-            StudentInfoDialog,
-            UploadDialog
+            TeacherInfoDialog,
+            TeacherUploadDialog
         },
         created: function () {
             Axios({
                 method: "get",
-                url: "/student/list",
-                params: {
-                    classId: 101
-                }
+                url: "/teacher/list",
             })
                 .then(res => {
                     this.tableData = res.data
@@ -114,23 +103,14 @@
                     console.log(err)
                 })
         },
+        watch: {
+            show() {
+                if (!this.show) {
+                    this.reloadRecord()
+                }
+            }
+        },
         methods: {
-            classIdChange(classId) {
-                Axios({
-                    method: "get",
-                    url: "/student/list",
-                    params: {
-                        classId: classId
-                    }
-                })
-                    .then(res => {
-                        this.tableData = res.data
-                        console.log(res.data)
-                    })
-                    .catch(err => {
-                        console.log(err)
-                    })
-            },
             uploadClick() {
                 this.uploadshow = true;
             },
@@ -139,71 +119,22 @@
                 this.rowInfo = row;
                 console.log(row)
             },
-            submit() {
-                let data = {
-                    list: this.courses
-                }
+            reloadRecord() {
                 Axios({
-                    method: "post",
-                    url: "/class/array",
-                    data: this.courses,
-                    headers: {
-                        'Content-Type': 'application/json'
-                    }
+                    method: "get",
+                    url: "/teacher/list",
                 })
                     .then(res => {
+                        this.tableData = res.data
                         console.log(res.data)
                     })
                     .catch(err => {
                         console.log(err)
                     })
-            },
-            importExcel(file) {
-                // let file = file.files[0] // 使用传统的input方法需要加上这一步
-                const types = file.name.split('.')[1]
-                const fileType = ['xlsx', 'xlc', 'xlm', 'xls', 'xlt', 'xlw', 'csv'].some(item => item === types)
-                if (!fileType) {
-                    alert('格式错误！请重新选择')
-                    return
-                }
-                this.file2Xce(file).then(tabJson => {
-                    if (tabJson && tabJson.length > 0) {
-                        this.xlsxJson = tabJson
-                        this.courses = tabJson[0].sheet
-                        console.log(this.xlsxJson[0].sheet)
-                        // xlsxJson就是解析出来的json数据,数据格式如下
-                        // [
-                        //   {
-                        //     sheetName: sheet1
-                        //     sheet: sheetData
-                        //   }
-                        // ]
-                    }
-                })
-            },
-            file2Xce(file) {
-                return new Promise(function (resolve, reject) {
-                    const reader = new FileReader()
-                    reader.onload = function (e) {
-                        const data = e.target.result
-                        this.wb = XLSX.read(data, {
-                            type: 'binary'
-                        })
-                        const result = []
-                        this.wb.SheetNames.forEach((sheetName) => {
-                            result.push({
-                                sheetName: sheetName,
-                                sheet: XLSX.utils.sheet_to_json(this.wb.Sheets[sheetName])
-                            })
-                        })
-                        resolve(result)
-                    }
-                    reader.readAsBinaryString(file.raw)
-                    // reader.readAsBinaryString(file) // 传统input方法
-                })
             }
 
-        }
+        },
+
     };
 </script>
 

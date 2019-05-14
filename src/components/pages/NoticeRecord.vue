@@ -78,18 +78,14 @@
         })
     },
     activated() {
-      console.log("页面重载")
-      Axios({
-        method: "get",
-        url: "/notice/list"
-      })
-        .then(res => {
-          console.log(res.data)
-          this.tableData = res.data.list
-        })
-        .catch(err => {
-          console.log(err)
-        })
+      this.reloadRecord()
+    },
+    watch: {
+      show(){
+        if(!this.show){
+          this.reloadRecord()
+        }
+      }
     },
     methods: {
       editClick(row) {
@@ -106,11 +102,24 @@
           }
         })
           .then(res => {
-            console.log(res.data)
+            this.reloadRecord()
           })
           .catch(err => {
             console.log(err)
           })
+      },
+      reloadRecord(){
+        Axios({
+        method: "get",
+        url: "/notice/list"
+      })
+        .then(res => {
+          console.log(res.data)
+          this.tableData = res.data.list
+        })
+        .catch(err => {
+          console.log(err)
+        })
       }
     }
   };

@@ -75,20 +75,23 @@
             submit() {
                 Axios({
                     method: "post",
-                    url: "/class/notice",
+                    url: "/notice/create",
                     data: this.noticeInfo,
                     headers: {
                         'Content-Type': 'application/json'
                     }
                 })
                     .then(res => {
-                        console.log(res.data)
+                        if(res.data.success){
+                            this.$message.success('提交成功！');
+                        }else{
+                            this.$message.success('提交失败！');
+                        }
                     })
                     .catch(err => {
                         console.log(err)
                     })
-                console.log(this.content);
-                this.$message.success('提交成功！');
+               
             }
         }
     }

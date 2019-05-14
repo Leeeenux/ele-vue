@@ -82,7 +82,6 @@
           type: '',
           time: '',
           content: '',
-          studentId:'1001',
           classId:'101'
         },
         rules: {

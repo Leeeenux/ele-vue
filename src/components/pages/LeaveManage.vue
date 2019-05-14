@@ -3,6 +3,14 @@
         <el-row>
             <el-col>
                 <el-card>
+                    <el-row>
+                        <el-select v-model="noticeInfo.classId" placeholder="请选择班级" @change="classIdChange">
+                            <el-option label="15软件1班" value="101"></el-option>
+                            <el-option label="15软件2班" value="102"></el-option>
+                            <el-option label="15软件3班" value="103"></el-option>
+                            <el-option label="15软件4班" value="104"></el-option>
+                        </el-select>
+                    </el-row>
                     <el-row style="margin-top:20px;">
                         <el-table :data="tableData" border style="width: 100%" size="mini">
                             <el-table-column type="index" label="序号" width="60">
@@ -26,10 +34,10 @@
                             <el-table-column label="操作" width="120">
                                 <template slot-scope="scope">
 
-                                    <el-button @click="editClick(scope.row)" icon="el-icon-edit" type="text"
-                                        size="small">编辑</el-button>
-                                    <el-button @click="deleteClick(scope.row)" icon="el-icon-delete" type="text"
-                                        size="small">删除</el-button>
+                                    <el-button @click="agreeClick(scope.row)" icon="el-icon-success" type="text"
+                                        size="small">通过</el-button>
+                                    <el-button @click="disagreeClick(scope.row)" icon="el-icon-error" type="text"
+                                        size="small">拒绝</el-button>
                                 </template>
                             </el-table-column>
                         </el-table>
@@ -46,7 +54,6 @@
                 </el-pagination>
             </div>
         </el-row>
-        <LeaveInfoDialog :show.sync="show" :rowInfo="rowInfo"></LeaveInfoDialog>
     </div>
 
 </template>
@@ -56,7 +63,6 @@
 <script>
     import bus from '@/components/bus';
     import { Axios } from '@/plugins/AxiosPlugin';
-    import LeaveInfoDialog from '@/components/common/LeaveInfoDialog'
     export default {
         data() {
             return {
@@ -90,12 +96,14 @@
 
         },
         components: {
-            LeaveInfoDialog
         },
         created: function () {
             Axios({
                 method: "get",
-                url: "/leave/list",
+                url: "/leave/listc",
+                params: {
+                    classId: 101
+                }
             })
                 .then(res => {
                     this.tableData = res.data.list
@@ -105,21 +113,15 @@
                     console.log(err)
                 })
         },
-        activated() {
-            this.reloadRecord()
-        },
-        watch: {
-            show() {
-                if (!this.show) {
-                    this.reloadRecord()
-                }
-            }
-        },
         methods: {
             classIdChange(classId) {
+                this.classId = classId
                 Axios({
                     method: "get",
-                    url: "/leave/list"
+                    url: "/leave/listc",
+                    params: {
+                        classId: classId
+                    }
                 })
                     .then(res => {
                         this.tableData = res.data.list
@@ -129,40 +131,44 @@
                         console.log(err)
                     })
             },
-            editClick(row) {
-                if (row.status == "未审核") {
-                    this.show = true;
-                    this.rowInfo = row;
-                } else {
-                    this.$message({
-                        message: '已审核不可以编辑',
-                        type: 'warning'
-                    });
-
-                }
-
-            },
-            deleteClick(row) {
-                var leaveId = row.leaveId
+            agreeClick(row) {
                 Axios({
                     method: "get",
-                    url: "/leave/delete",
+                    url: "/leave/agree",
                     params: {
-                        leaveId: leaveId
+                        leaveId: row.leaveId
                     }
                 })
                     .then(res => {
-                        this.reloadRecord();
+                        this.reloadRecord() 
+                    })
+                    .catch(err => {
+                        console.log(err)
+                    })
+                console.log(row)
+            },
+            disagreeClick(row) {
+                Axios({
+                    method: "get",
+                    url: "/leave/disagree",
+                    params: {
+                        leaveId: row.leaveId
+                    }
+                })
+                    .then(res => {
+                        this.reloadRecord() 
                     })
                     .catch(err => {
                         console.log(err)
                     })
             },
             reloadRecord() {
-                console.log("重载")
                 Axios({
                     method: "get",
-                    url: "/leave/list"
+                    url: "/leave/listc",
+                    params: {
+                        classId: this.classId
+                    }
                 })
                     .then(res => {
                         this.tableData = res.data.list

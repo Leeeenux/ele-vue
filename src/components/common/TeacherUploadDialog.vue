@@ -8,15 +8,13 @@
       <el-table :data="tableData" style="width: 100%" size="mini">
         <el-table-column type="index" label="序号" width="80">
         </el-table-column>
-        <el-table-column prop="studentId" label="学号">
+        <el-table-column prop="teacherId" label="工号">
         </el-table-column>
-        <el-table-column prop="studentName" label="姓名">
+        <el-table-column prop="teacherName" label="姓名">
         </el-table-column>
         <el-table-column prop="phone" label="手机号">
         </el-table-column>
-        <el-table-column prop="classId" label="班级ID">
-        </el-table-column>
-        <el-table-column prop="duty" label="职务">
+        <el-table-column prop="duty" label="职称">
         </el-table-column>
       </el-table>
       <div style="margin-top:20px;">
@@ -32,7 +30,7 @@
   import { Axios } from '@/plugins/AxiosPlugin';
     
   export default {
-    name: 'UploadDialog',
+    name: 'TeacherUploadDialog',
     data() {
       return {
         visible: this.uploadshow,
@@ -59,7 +57,7 @@
       onSubmit() {
         Axios({
           method: "post",
-          url: "/student/upload",
+          url: "/teacher/upload",
           data: this.tableData,
           headers: {
             'Content-Type': 'application/json'
