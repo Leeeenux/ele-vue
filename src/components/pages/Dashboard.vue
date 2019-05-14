@@ -2,37 +2,6 @@
   <div>
     <el-row :gutter="20">
       <el-col>
-        <el-carousel :interval="4000" type="card" height="250px">
-          <el-carousel-item>
-            <el-row>
-              <el-col :span="24">
-                <img style="width:100%;" ref="imgHeight"
-                  src="http://wx3.sinaimg.cn/large/006haIIAly1g2e1k1nz8zj30p00an0w5.jpg" class="banner_img" />
-              </el-col>
-            </el-row>
-          </el-carousel-item>
-          <el-carousel-item>
-            <el-row>
-              <el-col :span="24">
-                <img style="width:100%;" ref="imgHeight"
-                  src="http://wx4.sinaimg.cn/large/006haIIAly1g2loajbg2aj30p00an44u.jpg" class="banner_img" />
-              </el-col>
-            </el-row>
-          </el-carousel-item>
-          <el-carousel-item>
-            <el-row>
-              <el-col :span="24">
-                <img style="width:100%;" ref="imgHeight"
-                  src="http://wx3.sinaimg.cn/large/006haIIAly1g2loaj2whhj30p00antck.jpg" class="banner_img" />
-              </el-col>
-            </el-row>
-          </el-carousel-item>
-        </el-carousel>
-      </el-col>
-    </el-row>
-
-    <el-row :gutter="20">
-      <el-col>
         <el-card class="box-card">
           <div slot="header" class="clearfix">
             <span>当前课程</span>
@@ -64,6 +33,20 @@
         </el-card>
       </el-col>
     </el-row>
+    <el-row :gutter="20">
+      <el-col :span="12">
+        <el-card>
+          <a></a>
+        </el-card>
+      </el-col>
+      <el-col :span="12">
+        <el-card>
+          <a></a>
+        </el-card>
+      </el-col>
+    </el-row>
+
+
   </div>
 
 

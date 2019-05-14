@@ -1,63 +1,60 @@
 <template>
   <div>
-    <el-row :gutter="20">
-      <el-col>
-        <el-card class="box-card">
-          <div slot="header" class="clearfix">
-            <span>请假记录</span>
-          </div>
-          <el-row>
-            <div id="out-table">
-              <el-table
-              :data="tableData"
-              border
-              style="width: 100%">
-              <el-table-column
-                prop="num"
-                label="序号"
-                width="100">
-              </el-table-column>
-              <el-table-column
-                prop="studentNum"
-                label="学号"
-                width="120">
-              </el-table-column>
-              <el-table-column
-                prop="studentName"
-                label="姓名"
-                width="120">
-              </el-table-column>
-              <el-table-column
-                prop="name"
-                label="课程名"
-                >
-              </el-table-column>
-              <el-table-column
-                prop="reason"
-                label="节次"
-                width="150">
-              </el-table-column>
-              <el-table-column
-                prop="time"
-                label="签到时间"
-                width="200">
-              </el-table-column>
-              
-              <el-table-column
-                prop="address"
-                label="状态"
-                width="120">
-              </el-table-column>
-            </el-table>
-          </div>
-          </el-row>
-        </el-card>
-      </el-col>
-    </el-row>
-    <el-button type="primary" @click="exportExcel">导出excel</el-button>
-  </div>
-  
+      <el-row>
+          <el-col>
+              <el-card>
+                  <el-row>
+                      <el-select v-model="noticeInfo.classId" placeholder="请选择班级" @change="classIdChange">
+                          <el-option label="15软件1班" value="101"></el-option>
+                          <el-option label="15软件2班" value="102"></el-option>
+                          <el-option label="15软件3班" value="103"></el-option>
+                          <el-option label="15软件4班" value="104"></el-option>
+                      </el-select>
+                  </el-row>
+                  <el-row style="margin-top:20px;">
+                      <el-table :data="tableData" border style="width: 100%" size="mini">
+                          <el-table-column type="index"  label="序号" width="60">
+                          </el-table-column>
+                          <el-table-column prop="studentName" label="姓名" width="80">
+                          </el-table-column>
+                          <el-table-column prop="leaveId" label="请假的ID" width="80" v-if='false'>//这一列隐藏
+                          </el-table-column>
+                          <el-table-column prop="className" label="班级" width="80">
+                          </el-table-column>
+                          <el-table-column prop="content" label="请假理由">
+                          </el-table-column>
+                          <el-table-column prop="startTime" label="开始时间" width="180">
+                          </el-table-column>
+                          <el-table-column prop="endTime" label="结束时间" width="180">
+                          </el-table-column>
+                          <el-table-column prop="type" label="请假类型" width="80">
+                          </el-table-column>
+                          <el-table-column prop="status" label="状态" width="80">
+                          </el-table-column>
+                          <el-table-column label="操作" width="120">
+                              <template slot-scope="scope">
 
+                                  <el-button @click="agreeClick(scope.row)" icon="el-icon-success" type="text"
+                                      size="small">通过</el-button>
+                                  <el-button @click="disagreeClick(scope.row)" icon="el-icon-error" type="text"
+                                      size="small">拒绝</el-button>
+                              </template>
+                          </el-table-column>
+                      </el-table>
+                  </el-row>
+                  <el-row style="margin-top:20px;">
+                      <el-button icon="el-icon-download" type="primary">导出本班级</el-button>
+                  </el-row>
+              </el-card>
+          </el-col>
+      </el-row>
+      <el-row style="text-align: center;">
+          <div style="margin-top:20px;">
+              <el-pagination background layout="prev, pager, next" :total="100">
+              </el-pagination>
+          </div>
+      </el-row>
+  </div>
 
 </template>
 
@@ -65,110 +62,109 @@
 
 <script>
   import bus from '@/components/bus';
-  import { Axios } from '@/plugins/AxiosPlugin'
-  import FileSaver from 'file-saver'
-  import XLSX from 'xlsx'
+  import { Axios } from '@/plugins/AxiosPlugin';
   export default {
-    name: 'Header',
-    data() {
-      return {
-        userinfo:[],
-        tableData: [{
-          num: '1',
-          studentName: '林佳苗',
-          studentNum: '1001',
-          name: 'C语言程序设计',
-          reason:'星期三第5节-第6节',
-          time:'2019年4月30日  14:25:36',
-          address:'迟到'
-        },
-        {
-          num: '2',
-          studentName: '林佳苗',
-          studentNum: '1002',
-          name: 'C语言程序设计',
-          reason:'星期三第5节-第6节',
-          time:'2019年4月30日  14:27:16',
-          address:'迟到'
-        },
-        {
-          num: '3',
-          studentName: '陈丽',
-          studentNum: '1003',
-          name: 'C语言程序设计',
-          reason:'星期三第5节-第6节',
-          time:'2019年4月30日  14:24:54',
-          address:'准点'
-        },
-        {
-          num: '4',
-          studentName: '林佳苗',
-          studentNum: '1004',
-          name: 'C语言程序设计',
-          reason:'星期三第5节-第6节',
-          time:'2019年4月30日  14:21:30',
-          address:'准点'
-        },
-        {
-          num: '5',
-          studentName: '林佳苗',
-          studentNum: '1005',
-          name: 'C语言程序设计',
-          reason:'星期三第5节-第6节',
-          time:'2019年4月30日  14:15:15',
-          address:'准点'
-        }]
-      }
-
-    },
-    
-
-    created: function () {
-     
-    },
-    methods: {
-      clicktest: function () {
-        console.log(this.$route.path)
+      data() {
+          return {
+              noticeInfo: {
+                  title: '',
+                  content: '',
+                  type: '',
+                  classId: '101'
+              },
+              tableData: [{
+                  studentId: '1507052316',
+                  name: '王小虎',
+                  duty: '团支书',
+                  class: '15软件2班',
+                  phone: '15985810086'
+              }, {
+                  studentId: '1507052316',
+                  name: '王小虎',
+                  duty: '上海',
+                  city: '普陀区'
+              }, {
+                  studentId: '1',
+                  name: '王小虎',
+                  duty: '上海',
+                  city: '普陀区'
+              }],
+              show: false,
+              uploadshow: false,
+              rowInfo: {}
+          }
 
       },
-      exportExcel () {
-         /* generate workbook object from table */
-         var wb = XLSX.utils.table_to_book(document.querySelector('#out-table'))
-         /* get binary string as output */
-         var wbout = XLSX.write(wb, { bookType: 'xlsx', bookSST: true, type: 'array' })
-         try {
-             FileSaver.saveAs(new Blob([wbout], { type: 'application/octet-stream' }), 'sheetjs.xlsx')
-         } catch (e) { if (typeof console !== 'undefined') console.log(e, wbout) }
-         return wbout
-     }
-    }
+      components: {
+      },
+      created: function () {
+          Axios({
+              method: "get",
+              url: "/leave/listc",
+              params: {
+                  classId: 101
+              }
+          })
+              .then(res => {
+                  this.tableData = res.data.list
+                  console.log(res.data)
+              })
+              .catch(err => {
+                  console.log(err)
+              })
+      },
+      methods: {
+          classIdChange(classId) {
+              Axios({
+                  method: "get",
+                  url: "/leave/listc",
+                  params: {
+                      classId: classId
+                  }
+              })
+                  .then(res => {
+                      this.tableData = res.data.list
+                      console.log(res.data)
+                  })
+                  .catch(err => {
+                      console.log(err)
+                  })
+          },
+          agreeClick(row) {
+            Axios({
+                  method: "get",
+                  url: "/leave/agree",
+                  params: {
+                      leaveId: row.leaveId
+                  }
+              })
+                  .then(res => {
+                      console.log(res.data)
+                  })
+                  .catch(err => {
+                      console.log(err)
+                  })
+              console.log(row)
+          },
+          disagreeClick(row) {
+            Axios({
+                  method: "get",
+                  url: "/leave/disagree",
+                  params: {
+                      leaveId: row.leaveId
+                  }
+              })
+                  .then(res => {
+                      console.log(res.data)
+                  })
+                  .catch(err => {
+                      console.log(err)
+                  })
+          }
+
+      }
   };
 </script>
 
 <style scoped>
-  .text {
-    font-size: 14px;
-  }
-
-  .item {
-    padding: 18px 0;
-  }
-
-  .el-row {
-    margin-bottom: 20px;
-
-    &:last-child {
-      margin-bottom: 0;
-    }
-  }
-
-  .clearfix:before,
-  .clearfix:after {
-    display: table;
-    content: "";
-  }
-
-  .clearfix:after {
-    clear: both
-  }
 </style>

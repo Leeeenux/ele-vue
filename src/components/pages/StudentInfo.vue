@@ -4,30 +4,34 @@
             <el-col>
                 <el-card>
                     <el-row>
-                        <el-select v-model="noticeInfo.classId" placeholder="请选择班级">
+                        <el-select v-model="noticeInfo.classId" placeholder="请选择班级" @change="classIdChange">
                             <el-option label="15软件1班" value="101"></el-option>
                             <el-option label="15软件2班" value="102"></el-option>
                             <el-option label="15软件3班" value="103"></el-option>
                             <el-option label="15软件4班" value="104"></el-option>
                         </el-select>
-                        <el-button style="margin-left:20px;" icon="el-icon-upload2" type="success">批量导入</el-button>
+                        <el-button style="margin-left:20px;" @click='uploadClick' icon="el-icon-upload2" type="success">
+                            批量导入</el-button>
                     </el-row>
                     <el-row style="margin-top:20px;">
-                        <el-table :data="tableData" border style="width: 100%">
-                            <el-table-column prop="date" label="序号" width="80">
+                        <el-table :data="tableData" border style="width: 100%" size="mini">
+                            <el-table-column type="index" label="序号" width="80">
                             </el-table-column>
-                            <el-table-column prop="date" label="学号" width="180">
+                            <el-table-column prop="studentId" label="学号" width="180">
                             </el-table-column>
-                            <el-table-column prop="name" label="姓名" width="180">
+                            <el-table-column prop="studentName" label="姓名" width="180">
                             </el-table-column>
-                            <el-table-column prop="address" label="班级">
+                            <el-table-column prop="phone" label="手机号" width="180">
                             </el-table-column>
-                            <el-table-column prop="address" label="职务">
+                            <el-table-column prop="className" label="班级">
+                            </el-table-column>
+                            <el-table-column prop="duty" label="职务">
                             </el-table-column>
                             <el-table-column label="操作" width="120">
                                 <template slot-scope="scope">
-                                    <el-button @click="handleClick(scope.row)" icon="el-icon-search" type="text" size="small">查看</el-button>
-                                    <el-button icon="el-icon-edit" type="text" size="small">编辑</el-button>
+
+                                    <el-button @click="handleClick(scope.row)" icon="el-icon-edit" type="text"
+                                        size="small">编辑</el-button>
                                 </template>
                             </el-table-column>
                         </el-table>
@@ -44,75 +48,96 @@
                 </el-pagination>
             </div>
         </el-row>
+        <StudentInfoDialog :show.sync="show" :rowInfo="rowInfo"></StudentInfoDialog>
+        <UploadDialog :show.sync="uploadshow"></UploadDialog>
     </div>
+
 </template>
 
 
 
 <script>
     import bus from '@/components/bus';
-    import { Axios } from '@/plugins/AxiosPlugin'
-    import XLSX from 'xlsx'
+    import { Axios } from '@/plugins/AxiosPlugin';
+    import StudentInfoDialog from '@/components/common/StudentInfoDialog'
+    import UploadDialog from '@/components/common/UploadDialog'
+    import XLSX from 'xlsx';
     export default {
-        name: 'Header',
         data() {
             return {
                 noticeInfo: {
                     title: '',
                     content: '',
                     type: '',
-                    classId: ''
+                    classId: '101'
                 },
                 tableData: [{
-                    date: '1',
+                    studentId: '1507052316',
                     name: '王小虎',
-                    province: '上海',
-                    city: '普陀区',
-                    address: '上海市普陀区金沙江路 1518 弄',
-                    zip: 200333
+                    duty: '团支书',
+                    class: '15软件2班',
+                    phone: '15985810086'
                 }, {
-                    date: '2',
+                    studentId: '1507052316',
                     name: '王小虎',
-                    province: '上海',
-                    city: '普陀区',
-                    address: '上海市普陀区金沙江路 1517 弄',
-                    zip: 200333
+                    duty: '上海',
+                    city: '普陀区'
                 }, {
-                    date: '3',
+                    studentId: '1',
                     name: '王小虎',
-                    province: '上海',
-                    city: '普陀区',
-                    address: '上海市普陀区金沙江路 1519 弄',
-                    zip: 200333
-                }, {
-                    date: '4',
-                    name: '王小虎',
-                    province: '上海',
-                    city: '普陀区',
-                    address: '上海市普陀区金沙江路 1516 弄',
-                    zip: 200333
-                }]
+                    duty: '上海',
+                    city: '普陀区'
+                }],
+                show: false,
+                uploadshow: false,
+                rowInfo: {}
             }
 
         },
-
-
+        components: {
+            StudentInfoDialog,
+            UploadDialog
+        },
         created: function () {
-            // Axios({
-            //   method: "get",
-            //   url: "/user/info"
-            // })
-            //   .then(res => {
-            //     console.log(res.data)
-            //     this.data.userinfo = res.data
-            //   })
-            //   .catch(err => {
-            //     console.log(err)
-            //   })
+            Axios({
+                method: "get",
+                url: "/student/list",
+                params: {
+                    classId: 101
+                }
+            })
+                .then(res => {
+                    this.tableData = res.data
+                    console.log(res.data)
+                })
+                .catch(err => {
+                    console.log(err)
+                })
         },
         methods: {
-            handleClick(num){
-                console.log(num)
+            classIdChange(classId) {
+                Axios({
+                    method: "get",
+                    url: "/student/list",
+                    params: {
+                        classId: classId
+                    }
+                })
+                    .then(res => {
+                        this.tableData = res.data
+                        console.log(res.data)
+                    })
+                    .catch(err => {
+                        console.log(err)
+                    })
+            },
+            uploadClick() {
+                this.uploadshow = true;
+            },
+            handleClick(row) {
+                this.show = true;
+                this.rowInfo = row;
+                console.log(row)
             },
             submit() {
                 let data = {

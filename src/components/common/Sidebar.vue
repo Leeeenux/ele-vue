@@ -57,8 +57,8 @@
         </template>
         <el-menu-item-group>
           <span slot="title">请假</span>
-          <el-menu-item index="editor">消息编辑器</el-menu-item>
-          <el-menu-item index="leaverecord">请假记录</el-menu-item>
+          <el-menu-item index="editor">通知编辑器</el-menu-item>
+          <el-menu-item index="noticerecord">管理通知</el-menu-item>
         </el-menu-item-group>
       </el-submenu>
       <el-submenu index="1">

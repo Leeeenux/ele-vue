@@ -33,9 +33,9 @@
     <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
       <el-form-item label="请假类型" prop="type">
         <el-select v-model="ruleForm.type" placeholder="请选择请假类型">
-          <el-option label="事假" value="shijia"></el-option>
-          <el-option label="公假" value="gongjia"></el-option>
-          <el-option label="病假" value="bingjia"></el-option>
+          <el-option label="事假" value="事假"></el-option>
+          <el-option label="公假" value="公假"></el-option>
+          <el-option label="病假" value="病假"></el-option>
         </el-select>
       </el-form-item>
       <el-form-item label="请假时间" prop="time" required>
@@ -54,8 +54,8 @@
               </el-date-picker>
           </el-col>
       </el-form-item>
-      <el-form-item label="请假理由" prop="desc">
-        <el-input type="textarea" v-model="ruleForm.desc"></el-input>
+      <el-form-item label="请假理由" prop="content">
+        <el-input type="textarea" v-model="ruleForm.content"></el-input>
       </el-form-item>
       <el-form-item>
         <el-button type="primary" @click="submitForm('ruleForm')">立即申请</el-button>
@@ -76,13 +76,14 @@
   import Qs from 'qs';
 
   export default {
-    name: 'Header',
     data() {
       return {
         ruleForm: {
           type: '',
           time: '',
-          desc: ''
+          content: '',
+          studentId:'1001',
+          classId:'101'
         },
         rules: {
           time: [
@@ -104,14 +105,14 @@
             console.log(this.ruleForm)
             Axios({
               method: "post",
-              url: "/api/shenqing",
-              data: Qs.stringify(this.ruleForm),
+              url: "/leave/create",
+              data: this.ruleForm,
               headers: {
                 'Content-Type': 'application/x-www-form-urlencoded'
               }
             })
               .then(res => {
-                console.log("ss")
+                this.$message.success('提交成功！');
 
               })
               .catch(err => {

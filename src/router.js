@@ -50,7 +50,7 @@ export default new Router({
           component: resolve => require(['./components/pages/AttendanceManage.vue'], resolve)
         },
         {
-          path:'settings',
+          path:'noticerecord',
           component: resolve => require(['./components/pages/NoticeRecord.vue'], resolve)
         },
         {
