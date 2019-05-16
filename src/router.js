@@ -34,6 +34,10 @@ export default new Router({
           component: resolve => require(['./components/pages/LeaveRecord.vue'], resolve)
         },
         {
+          path:'teacher',
+          component: resolve => require(['./components/pages/TeacherDashboard.vue'], resolve)
+        },
+        {
           path:'leavemanage',
           component: resolve => require(['./components/pages/LeaveManage.vue'], resolve)
         },

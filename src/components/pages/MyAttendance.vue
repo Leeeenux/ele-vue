@@ -26,13 +26,13 @@
                 </el-table-column>
                 <el-table-column prop="signInStatus" label="签到状态" width="80">
                 </el-table-column>
-                <el-table-column label="操作" width="120">
+                <!-- <el-table-column label="操作" width="120">
                   <template slot-scope="scope">
                     <el-button @click="deleteClick(scope.row)" icon="el-icon-delete" type="text" size="small">删除
                     </el-button>
                     <el-button @click="editClick(scope.row)" icon="el-icon-edit" type="text" size="small">编辑</el-button>
                   </template>
-                </el-table-column>
+                </el-table-column> -->
               </el-table>
             </el-row>
   
@@ -77,7 +77,10 @@
       created: function () {
         Axios({
           method: "get",
-          url: "/student/record"
+          url: "/student/record",
+          params:{
+            days:this.days
+          }
         })
           .then(res => {
             console.log(res.data)
@@ -99,7 +102,8 @@
       },
       methods: {
         daysChange(e){
-          console.log(e)
+          this.days = e
+          this.reloadRecord()
         },
         editClick(row) {
           this.show = true;
@@ -124,7 +128,10 @@
         reloadRecord(){
           Axios({
           method: "get",
-          url: "/student/record"
+          url: "/student/record",
+          params:{
+            days:this.days
+          }
         })
           .then(res => {
             console.log(res.data)

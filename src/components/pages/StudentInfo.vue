@@ -14,7 +14,7 @@
                             批量导入</el-button>
                     </el-row>
                     <el-row style="margin-top:20px;">
-                        <el-table :data="tableData" border style="width: 100%" size="mini">
+                        <el-table :data="tableData" border style="width: 100%" size="mini" id="table">
                             <el-table-column type="index" label="序号" width="80">
                             </el-table-column>
                             <el-table-column prop="studentId" label="学号" width="180">
@@ -37,7 +37,7 @@
                         </el-table>
                     </el-row>
                     <el-row style="margin-top:20px;">
-                        <el-button icon="el-icon-download" type="primary">导出本班级</el-button>
+                        <el-button icon="el-icon-download" @click='exportClick' type="primary">导出本班级</el-button>
                     </el-row>
                 </el-card>
             </el-col>
@@ -62,9 +62,11 @@
     import StudentInfoDialog from '@/components/common/StudentInfoDialog'
     import UploadDialog from '@/components/common/UploadDialog'
     import XLSX from 'xlsx';
+    import FileSaver from 'file-saver'
     export default {
         data() {
             return {
+                classId:101,
                 noticeInfo: {
                     title: '',
                     content: '',
@@ -103,7 +105,7 @@
                 method: "get",
                 url: "/student/list",
                 params: {
-                    classId: 101
+                    classId: this.classId
                 }
             })
                 .then(res => {
@@ -162,6 +164,17 @@
                     .catch(err => {
                         console.log(err)
                     })
+            },
+            exportClick() {
+                /* generate workbook object from table */
+                var excelName = '学生信息' + '-' + this.classId + '-' + Date.parse(new Date());
+                var wb = XLSX.utils.table_to_book(document.querySelector('#table'))
+                /* get binary string as output */
+                var wbout = XLSX.write(wb, { bookType: 'xlsx', bookSST: true, type: 'array' })
+                try {
+                    FileSaver.saveAs(new Blob([wbout], { type: 'application/octet-stream' }), excelName + '.xlsx')
+                } catch (e) { if (typeof console !== 'undefined') console.log(e, wbout) }
+                return wbout
             }
 
         }

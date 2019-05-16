@@ -4,7 +4,7 @@
             <el-col>
                 <el-card>
                     <el-row>
-                        <el-select v-model="noticeInfo.classId" placeholder="请选择班级" @change="classIdChange">
+                        <el-select v-model="classId" placeholder="请选择班级" @change="classIdChange">
                             <el-option label="15软件1班" value="101"></el-option>
                             <el-option label="15软件2班" value="102"></el-option>
                             <el-option label="15软件3班" value="103"></el-option>
@@ -12,7 +12,7 @@
                         </el-select>
                     </el-row>
                     <el-row style="margin-top:20px;">
-                        <el-table :data="tableData" border style="width: 100%" size="mini">
+                        <el-table :data="tableData" border style="width: 100%" size="mini" id="table">
                             <el-table-column type="index" label="序号" width="60">
                             </el-table-column>
                             <el-table-column prop="studentName" label="姓名" width="80">
@@ -43,7 +43,7 @@
                         </el-table>
                     </el-row>
                     <el-row style="margin-top:20px;">
-                        <el-button icon="el-icon-download" type="primary">导出本班级</el-button>
+                        <el-button icon="el-icon-download" @click='exportClick' type="primary">导出本班级</el-button>
                     </el-row>
                 </el-card>
             </el-col>
@@ -63,15 +63,12 @@
 <script>
     import bus from '@/components/bus';
     import { Axios } from '@/plugins/AxiosPlugin';
+    import XLSX from 'xlsx';
+    import FileSaver from 'file-saver'
     export default {
         data() {
             return {
-                noticeInfo: {
-                    title: '',
-                    content: '',
-                    type: '',
-                    classId: '101'
-                },
+                classId: "101",
                 tableData: [{
                     studentId: '1507052316',
                     name: '王小虎',
@@ -140,7 +137,7 @@
                     }
                 })
                     .then(res => {
-                        this.reloadRecord() 
+                        this.reloadRecord()
                     })
                     .catch(err => {
                         console.log(err)
@@ -156,7 +153,7 @@
                     }
                 })
                     .then(res => {
-                        this.reloadRecord() 
+                        this.reloadRecord()
                     })
                     .catch(err => {
                         console.log(err)
@@ -177,6 +174,17 @@
                     .catch(err => {
                         console.log(err)
                     })
+            },
+            exportClick() {
+                /* generate workbook object from table */
+                var excelName = '班级请假记录' + '-' + this.classId + '-' + Date.parse(new Date());
+                var wb = XLSX.utils.table_to_book(document.querySelector('#table'))
+                /* get binary string as output */
+                var wbout = XLSX.write(wb, { bookType: 'xlsx', bookSST: true, type: 'array' })
+                try {
+                    FileSaver.saveAs(new Blob([wbout], { type: 'application/octet-stream' }), excelName + '.xlsx')
+                } catch (e) { if (typeof console !== 'undefined') console.log(e, wbout) }
+                return wbout
             }
 
         }

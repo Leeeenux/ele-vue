@@ -26,6 +26,10 @@
         <i class="iconfont icon-shujukanban" v-if="role == 'student'"></i>
         <span slot="title">我的面板</span>
       </el-menu-item>
+      <el-menu-item index="teacher" v-if="role == 'teacher'">
+        <i class="iconfont icon-shujukanban" v-if="role == 'teacher'"></i>
+        <span slot="title">我的面板</span>
+      </el-menu-item>
       <el-menu-item index="class" v-if="role == 'student'">
         <i class="iconfont icon-peiwangyindao" ></i>
         <span slot="title">我参与的课程</span>
@@ -34,15 +38,26 @@
         <i class="iconfont icon-icon_zhanghao"></i>
         <span slot="title">学生管理</span>
       </el-menu-item> -->
-      <el-menu-item index="AttendanceManage" v-if="role == 'teacher'">
+      <!-- <el-menu-item index="AttendanceManage" v-if="role == 'teacher'">
         <i class="iconfont icon-biaodanzujian-biaoge2"></i>
         <span slot="title">考勤管理</span>
-      </el-menu-item>
+      </el-menu-item> -->
+      <el-submenu index="0" v-if="role == 'teacher'">
+          <template slot="title">
+            <i class="iconfont icon-biaodanzujian-biaoge2"></i>
+            <span slot="title">考勤管理</span>
+          </template>
+          <el-menu-item-group>
+            <span slot="title">考勤管理</span>
+            <el-menu-item index="AttendanceManage" v-if="role == 'teacher'">考勤查询</el-menu-item>
+            <el-menu-item index="teacherInfo" v-if="role == 'teacher'">考勤申诉</el-menu-item>
+          </el-menu-item-group>
+        </el-submenu>
       <el-menu-item index="MyAttendance" v-if="role == 'student'">
         <i class="iconfont icon-biaodanzujian-biaoge2"></i>
         <span slot="title">我的签到</span>
       </el-menu-item>
-      <el-submenu index="0" v-if="role == 'teacher'">
+      <el-submenu index="1" v-if="role == 'teacher'">
           <template slot="title">
             <i class="iconfont icon-quanxianshenpi"></i>
             <span slot="title">人员管理</span>
@@ -58,7 +73,7 @@
           <i class="iconfont icon-biaodanzujian-biaoge2"></i>
           <span slot="title">查看通知</span>
       </el-menu-item>
-      <el-submenu index="1" v-if="role == 'teacher'">
+      <el-submenu index="2" v-if="role == 'teacher'">
         <template slot="title">
           <i class="iconfont icon-xiaoxitongzhi"></i>
           <span slot="title">通知</span>
@@ -69,7 +84,7 @@
           <el-menu-item index="noticerecord" v-if="role == 'teacher'" >管理通知</el-menu-item>
         </el-menu-item-group>
       </el-submenu>
-      <el-submenu index="2">
+      <el-submenu index="3">
         <template slot="title">
           <i class="iconfont icon-renwujincheng"></i>
           <span slot="title">请假</span>
