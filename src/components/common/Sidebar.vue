@@ -22,15 +22,15 @@
           <el-menu-item index="1-4-1">选项1</el-menu-item>
         </el-submenu>
       </el-submenu> -->
-      <el-menu-item index="/" v-if="role == 'student'">
+      <!-- <el-menu-item index="/" v-if="role == 'student'">
         <i class="iconfont icon-shujukanban" v-if="role == 'student'"></i>
         <span slot="title">我的面板</span>
-      </el-menu-item>
+      </el-menu-item> -->
       <el-menu-item index="teacher" v-if="role == 'teacher'">
         <i class="iconfont icon-shujukanban" v-if="role == 'teacher'"></i>
         <span slot="title">我的面板</span>
       </el-menu-item>
-      <el-menu-item index="class" v-if="role == 'student'">
+      <el-menu-item index="student" v-if="role == 'student'">
         <i class="iconfont icon-peiwangyindao" ></i>
         <span slot="title">我参与的课程</span>
       </el-menu-item>
@@ -50,7 +50,7 @@
           <el-menu-item-group>
             <span slot="title">考勤管理</span>
             <el-menu-item index="AttendanceManage" v-if="role == 'teacher'">考勤查询</el-menu-item>
-            <el-menu-item index="teacherInfo" v-if="role == 'teacher'">考勤申诉</el-menu-item>
+            <!-- <el-menu-item index="teacherInfo" v-if="role == 'teacher'">考勤申诉</el-menu-item> -->
           </el-menu-item-group>
         </el-submenu>
       <el-menu-item index="MyAttendance" v-if="role == 'student'">

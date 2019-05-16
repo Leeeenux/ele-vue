@@ -42,12 +42,8 @@ export default new Router({
           component: resolve => require(['./components/pages/LeaveManage.vue'], resolve)
         },
         {
-          path:'class',
-          component: resolve => require(['./components/pages/Class.vue'], resolve)
-        },
-        {
           path:'student',
-          component: resolve => require(['./components/pages/Student.vue'], resolve)
+          component: resolve => require(['./components/pages/Class.vue'], resolve)
         },
         {
           path:'MyAttendance',

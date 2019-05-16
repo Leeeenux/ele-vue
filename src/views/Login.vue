@@ -103,7 +103,7 @@
                                     });
                                     localStorage.setItem("token", res.data.token);
                                     Axios.defaults.headers['token'] = res.data.token
-                                    this.$router.push("/");
+                                    this.$router.push("/"+ this.radio);
                                 } else {
                                     this.$message({
                                         message: '账号或密码错误',
