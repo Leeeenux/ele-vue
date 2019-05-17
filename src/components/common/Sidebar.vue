@@ -69,7 +69,7 @@
           </el-menu-item-group>
         </el-submenu>
 
-      <el-menu-item index="noticerecord" v-if="role == 'student'">
+      <el-menu-item index="studentnoticerecord" v-if="role == 'student'">
           <i class="iconfont icon-biaodanzujian-biaoge2"></i>
           <span slot="title">查看通知</span>
       </el-menu-item>
@@ -176,10 +176,10 @@
     props: ['role'],
     methods: {
       handleOpen(key, keyPath) {
-        console.log(key, keyPath);
+        // console.log(key, keyPath);
       },
       handleClose(key, keyPath) {
-        console.log(key, keyPath);
+        // console.log(key, keyPath);
       }
     },
     computed: {

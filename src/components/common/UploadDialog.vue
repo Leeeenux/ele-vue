@@ -30,7 +30,7 @@
 <script>
   import XLSX from 'xlsx';
   import { Axios } from '@/plugins/AxiosPlugin';
-    
+
   export default {
     name: 'UploadDialog',
     data() {
@@ -66,6 +66,10 @@
           }
         })
           .then(res => {
+            this.$message({
+              message: res.data.msg,
+              type: 'success'
+            });
             console.log(res.data)
           })
           .catch(err => {

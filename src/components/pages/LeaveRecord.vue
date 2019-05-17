@@ -35,7 +35,7 @@
                         </el-table>
                     </el-row>
                     <el-row style="margin-top:20px;">
-                        <el-button icon="el-icon-download" type="primary">导出本班级</el-button>
+                        <el-button icon="el-icon-download" type="primary">导出本表</el-button>
                     </el-row>
                 </el-card>
             </el-col>

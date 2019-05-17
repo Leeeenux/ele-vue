@@ -58,6 +58,10 @@ export default new Router({
           component: resolve => require(['./components/pages/NoticeRecord.vue'], resolve)
         },
         {
+          path:'studentnoticerecord',
+          component: resolve => require(['./components/pages/StudentNoticeRecord.vue'], resolve)
+        },
+        {
           path:'studentInfo',
           component: resolve => require(['./components/pages/StudentInfo.vue'], resolve)
         },

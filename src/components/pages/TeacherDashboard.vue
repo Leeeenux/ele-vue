@@ -121,8 +121,21 @@
     },
     methods: {
       StartAtd() {
+        this.start()
         this.student()
         this.countDown()
+      },
+      start(){
+        Axios({
+        method: "get",
+        url: "/atd/start"
+      })
+        .then(res => {
+
+        })
+        .catch(err => {
+          console.log(err)
+        })
       },
       allow(){
         

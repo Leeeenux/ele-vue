@@ -7,16 +7,19 @@
             <span style="font-weight:bold;">最新通知</span>
           </div>
           <el-collapse v-model="activeName" accordion>
-              <el-collapse-item v-for='item in notices' :title="item.title" :name="item.noticeId">
+            <div v-for='item in notices'>
+              <el-collapse-item :title="item.title" :name="item.noticeId">
                 <div v-html="item.content"></div>
               </el-collapse-item>
+            </div>
+
           </el-collapse>
-         
+
         </el-card>
       </el-col>
 
     </el-row>
-    <el-row style="margin-top:20px;">
+    <el-row style="margin-top:20px;margin-bottom:20px">
       <el-col>
         <el-card class="box-card">
           <div slot="header" class="clearfix">
@@ -39,6 +42,9 @@
               <el-table-column prop="teacher" label="任课教师" width="120">
               </el-table-column>
             </el-table>
+          </el-row>
+          <el-row style="margin-top:20px;">
+              <el-button icon="el-icon-download" type="primary">导出本表</el-button>
           </el-row>
         </el-card>
       </el-col>

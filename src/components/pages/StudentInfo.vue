@@ -121,6 +121,11 @@
                 if (!this.show) {
                     this.reloadRecord()
                 }
+            },
+            uploadshow(){
+                if (!this.uploadshow) {
+                    this.reloadRecord()
+                }
             }
         },
         methods: {

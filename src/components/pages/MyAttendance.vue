@@ -11,7 +11,7 @@
                   </el-select>
               </el-row>
             <el-row style="margin-top:20px;">
-              <el-table :data="tableData" border style="width: 100%" size="mini">
+              <el-table :data="tableData" border style="width: 100%" size="mini" id='table'>
                 <el-table-column type="index" label="序号" width="80">
                 </el-table-column>
                 <el-table-column prop="subjectName" label="课程">
@@ -35,7 +35,9 @@
                 </el-table-column> -->
               </el-table>
             </el-row>
-  
+            <el-row style="margin-top:20px;">
+                <el-button icon="el-icon-download" @click='exportClick' type="primary">导出本表</el-button>
+            </el-row>
           </el-card>
         </el-col>
       </el-row>
@@ -56,6 +58,8 @@
     import bus from '@/components/bus';
     import { Axios } from '@/plugins/AxiosPlugin'
     import EditorDialog from '@/components/common/EditorDialog'
+    import XLSX from 'xlsx';
+    import FileSaver from 'file-saver'
     export default {
       data() {
         return {
@@ -140,7 +144,18 @@
           .catch(err => {
             console.log(err)
           })
-        }
+        },
+        exportClick() {
+                /* generate workbook object from table */
+                var excelName = '学生考勤记录' + '-'  + Date.parse(new Date());
+                var wb = XLSX.utils.table_to_book(document.querySelector('#table'))
+                /* get binary string as output */
+                var wbout = XLSX.write(wb, { bookType: 'xlsx', bookSST: true, type: 'array' })
+                try {
+                    FileSaver.saveAs(new Blob([wbout], { type: 'application/octet-stream' }), excelName + '.xlsx')
+                } catch (e) { if (typeof console !== 'undefined') console.log(e, wbout) }
+                return wbout
+            }
       }
     };
   </script>
